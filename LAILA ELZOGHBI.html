@@ -1,0 +1,1985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Laila El Zoghbi — Freelance photographer based in London. Editorial, portrait & landscape." />
+  <title>Laila El Zoghbi — Photographer</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --black:       #080808;
+      --off-white:   #e8e5e0;
+      --muted:       rgba(232, 229, 224, 0.45);
+      --accent:      #c9a96e;
+      --accent-dim:  rgba(201, 169, 110, 0.18);
+      --serif:       'EB Garamond', Georgia, serif;
+      --sans:        'Jost', system-ui, sans-serif;
+      --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);
+      --nav-h:       60px;
+      --bar-h:       calc(56px + env(safe-area-inset-bottom, 0px));
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      background: var(--black);
+      color: var(--off-white);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+      padding-bottom: var(--bar-h);
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: none;
+      font: inherit;
+    }
+
+    /* ============================================================
+       NAVIGATION
+    ============================================================ */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      padding: 0 20px;
+      padding-top: env(safe-area-inset-top, 0px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.4s var(--ease-out), backdrop-filter 0.4s;
+    }
+
+    .nav.scrolled {
+      background: rgba(8, 8, 8, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(232, 229, 224, 0.08);
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--off-white);
+      z-index: 101;
+    }
+
+    .nav-logo span {
+      color: var(--accent);
+    }
+
+    /* Hamburger */
+    .nav-toggle {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 44px;
+      height: 44px;
+      align-items: center;
+      z-index: 101;
+      padding: 8px;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--off-white);
+      transition: transform 0.35s var(--ease-out), opacity 0.25s;
+      transform-origin: center;
+    }
+
+    .nav-toggle.open span:nth-child(1) {
+      transform: translateY(6.5px) rotate(45deg);
+    }
+    .nav-toggle.open span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    .nav-toggle.open span:nth-child(3) {
+      transform: translateY(-6.5px) rotate(-45deg);
+    }
+
+    /* Mobile nav drawer */
+    .nav-drawer {
+      position: fixed;
+      inset: 0;
+      z-index: 99;
+      background: rgba(8, 8, 8, 0.97);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 36px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s var(--ease-out);
+    }
+
+    .nav-drawer.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .nav-drawer a {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 8vw, 3rem);
+      font-weight: 400;
+      color: var(--off-white);
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+      padding: 8px 24px;
+    }
+
+    .nav-drawer a:hover,
+    .nav-drawer a:focus {
+      color: var(--accent);
+    }
+
+    /* Desktop nav links (hidden on mobile) */
+    .nav-links {
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .nav-links {
+        display: flex;
+        gap: 32px;
+        list-style: none;
+      }
+
+      .nav-links a {
+        font-size: 0.8125rem;
+        font-weight: 400;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+        transition: color 0.2s;
+      }
+
+      .nav-links a:hover {
+        color: var(--off-white);
+      }
+
+      .nav-toggle {
+        display: none;
+      }
+
+      .nav-drawer {
+        display: none;
+      }
+    }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    #hero {
+      position: relative;
+      width: 100%;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0 24px calc(80px + env(safe-area-inset-bottom, 0px));
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      object-position: center 30%;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(8,8,8,0.25) 0%,
+        rgba(8,8,8,0.1) 30%,
+        rgba(8,8,8,0.55) 65%,
+        rgba(8,8,8,0.92) 100%
+      );
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 560px;
+      width: 100%;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeUp 0.9s var(--ease-out) 0.3s forwards;
+    }
+
+    .hero-name {
+      font-family: var(--serif);
+      font-size: clamp(3.2rem, 14vw, 7rem);
+      font-weight: 500;
+      line-height: 1.0;
+      letter-spacing: -0.01em;
+      color: var(--off-white);
+      margin-bottom: 12px;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeUp 1s var(--ease-out) 0.5s forwards;
+    }
+
+    .hero-tagline-big {
+      font-family: var(--serif);
+      font-size: clamp(1.5rem, 6vw, 2.8rem);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--accent);
+      margin-bottom: 16px;
+      opacity: 0;
+      transform: translateY(14px);
+      animation: fadeUp 1s var(--ease-out) 0.7s forwards;
+    }
+
+    .hero-tagline-sub {
+      font-size: clamp(0.875rem, 3.5vw, 1rem);
+      font-weight: 300;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeUp 1s var(--ease-out) 0.9s forwards;
+    }
+
+    .hero-scroll-cue {
+      position: absolute;
+      bottom: calc(36px + env(safe-area-inset-bottom, 0px));
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      animation: fadeUp 1s var(--ease-out) 1.3s forwards;
+    }
+
+    .hero-scroll-cue span {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--muted), transparent);
+      animation: scrollPulse 2s ease-in-out infinite 1.5s;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.15); }
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ============================================================
+       SECTION COMMONS
+    ============================================================ */
+    section {
+      padding: 80px 0;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 7vw, 3.5rem);
+      font-weight: 500;
+      line-height: 1.1;
+      color: var(--off-white);
+      margin-bottom: 24px;
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .divider {
+      width: 40px;
+      height: 1px;
+      background: var(--accent);
+      margin-bottom: 32px;
+    }
+
+    /* Fade-in via Intersection Observer */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.75s var(--ease-out), transform 0.75s var(--ease-out);
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .fade-in-delay-1 { transition-delay: 0.1s; }
+    .fade-in-delay-2 { transition-delay: 0.2s; }
+    .fade-in-delay-3 { transition-delay: 0.3s; }
+    .fade-in-delay-4 { transition-delay: 0.4s; }
+
+    /* ============================================================
+       GALLERY
+    ============================================================ */
+    #gallery {
+      padding: 60px 0 80px;
+      background: #050505;
+    }
+
+    #gallery .container {
+      margin-bottom: 40px;
+    }
+
+    /* Mobile: single-column feed */
+    .gallery-feed {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 0 20px;
+    }
+
+    .gallery-item {
+      width: 85vw;
+      max-width: 480px;
+      border-radius: 4px;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.65s var(--ease-out), transform 0.65s var(--ease-out), box-shadow 0.3s;
+    }
+
+    .gallery-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .gallery-item:hover .gallery-img-wrap::after {
+      opacity: 1;
+    }
+
+    .gallery-item:hover .gallery-caption {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .gallery-img-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Alternating portrait / landscape */
+    .gallery-item:nth-child(odd) .gallery-img-wrap {
+      aspect-ratio: 3 / 4;
+    }
+
+    .gallery-item:nth-child(even) .gallery-img-wrap {
+      aspect-ratio: 4 / 3;
+    }
+
+    .gallery-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(8,8,8,0.45);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .gallery-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s var(--ease-out);
+    }
+
+    .gallery-item:hover .gallery-img-wrap img,
+    .gallery-item:focus .gallery-img-wrap img {
+      transform: scale(1.04);
+    }
+
+    .gallery-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      padding: 20px 16px 16px;
+      background: linear-gradient(to top, rgba(8,8,8,0.85) 0%, transparent 100%);
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--off-white);
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.3s, transform 0.3s;
+      pointer-events: none;
+    }
+
+    .gallery-tap-hint {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 3;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(232,229,224,0.12);
+      border: 1px solid rgba(232,229,224,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+
+    .gallery-tap-hint svg {
+      width: 18px;
+      height: 18px;
+      fill: var(--off-white);
+    }
+
+    .gallery-item:hover .gallery-tap-hint,
+    .gallery-item:focus .gallery-tap-hint {
+      opacity: 1;
+    }
+
+    /* Desktop: masonry-style grid */
+    @media (min-width: 600px) {
+      .gallery-feed {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding: 0 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .gallery-item {
+        width: 100%;
+        max-width: none;
+      }
+
+      .gallery-item:nth-child(odd) .gallery-img-wrap {
+        aspect-ratio: 3 / 4;
+      }
+
+      .gallery-item:nth-child(even) .gallery-img-wrap {
+        aspect-ratio: 4 / 3;
+      }
+
+      .gallery-item:nth-child(3n+1) .gallery-img-wrap {
+        aspect-ratio: 4 / 3;
+      }
+    }
+
+    @media (min-width: 900px) {
+      .gallery-feed {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+    }
+
+    /* ============================================================
+       LIGHTBOX
+    ============================================================ */
+    #lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(4, 4, 4, 0.97);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s var(--ease-out);
+    }
+
+    #lightbox.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .lb-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lb-img-wrap {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 0 80px;
+    }
+
+    .lb-img-wrap img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 2px;
+      user-select: none;
+      -webkit-user-drag: none;
+      transition: opacity 0.25s;
+    }
+
+    .lb-close {
+      position: absolute;
+      top: calc(16px + env(safe-area-inset-top, 0px));
+      right: 16px;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--off-white);
+      font-size: 1.5rem;
+      border-radius: 50%;
+      background: rgba(232,229,224,0.1);
+      transition: background 0.2s;
+      z-index: 10;
+    }
+
+    .lb-close:hover {
+      background: rgba(232,229,224,0.2);
+    }
+
+    .lb-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--off-white);
+      background: rgba(232,229,224,0.08);
+      border-radius: 50%;
+      transition: background 0.2s;
+      z-index: 10;
+    }
+
+    .lb-nav:hover {
+      background: rgba(232,229,224,0.18);
+    }
+
+    .lb-prev { left: 12px; }
+    .lb-next { right: 12px; }
+
+    .lb-caption {
+      position: absolute;
+      bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .lb-counter {
+      position: absolute;
+      bottom: calc(40px + env(safe-area-inset-bottom, 0px));
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      color: rgba(232,229,224,0.3);
+    }
+
+    /* ============================================================
+       ABOUT
+    ============================================================ */
+    #about {
+      background: var(--black);
+    }
+
+    .about-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .about-portrait {
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+      border-radius: 4px;
+      overflow: hidden;
+      aspect-ratio: 3 / 4;
+      position: relative;
+    }
+
+    .about-portrait::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 4px;
+      border: 1px solid rgba(201,169,110,0.2);
+      pointer-events: none;
+    }
+
+    .about-portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(20%) contrast(1.05);
+    }
+
+    .about-text-block {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .about-bio {
+      font-size: clamp(0.9375rem, 3.5vw, 1.0625rem);
+      line-height: 1.8;
+      color: rgba(232,229,224,0.78);
+      margin-bottom: 48px;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(232,229,224,0.08);
+      border: 1px solid rgba(232,229,224,0.08);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .stat {
+      background: rgba(8,8,8,0.8);
+      padding: 24px 12px;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 6vw, 2.75rem);
+      font-weight: 500;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    @media (min-width: 768px) {
+      .about-grid {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 64px;
+      }
+
+      .about-portrait {
+        width: 340px;
+        flex-shrink: 0;
+        margin: 0;
+      }
+
+      .about-text-block {
+        flex: 1;
+      }
+    }
+
+    /* ============================================================
+       SERVICES
+    ============================================================ */
+    #services {
+      background: #0c0c0c;
+    }
+
+    .services-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: rgba(232,229,224,0.06);
+      border: 1px solid rgba(232,229,224,0.06);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .service-item {
+      background: var(--black);
+      overflow: hidden;
+    }
+
+    .service-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 20px;
+      min-height: 72px;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      gap: 16px;
+      transition: background 0.2s;
+    }
+
+    .service-header:hover,
+    .service-header:focus {
+      background: rgba(201,169,110,0.05);
+      outline: none;
+    }
+
+    .service-header-left {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .service-name {
+      font-family: var(--serif);
+      font-size: clamp(1.05rem, 4vw, 1.25rem);
+      font-weight: 500;
+      color: var(--off-white);
+      line-height: 1.2;
+    }
+
+    .service-price {
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+    }
+
+    .service-toggle {
+      width: 32px;
+      height: 32px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      border: 1px solid rgba(232,229,224,0.15);
+      transition: transform 0.35s var(--ease-out), border-color 0.2s, background 0.2s;
+    }
+
+    .service-toggle svg {
+      width: 12px;
+      height: 12px;
+      stroke: var(--muted);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      transition: stroke 0.2s;
+    }
+
+    .service-item.open .service-toggle {
+      transform: rotate(45deg);
+      background: var(--accent-dim);
+      border-color: rgba(201,169,110,0.35);
+    }
+
+    .service-item.open .service-toggle svg {
+      stroke: var(--accent);
+    }
+
+    .service-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.45s var(--ease-out);
+    }
+
+    .service-body-inner {
+      padding: 0 20px 24px;
+      font-size: 0.9rem;
+      line-height: 1.75;
+      color: rgba(232,229,224,0.65);
+      border-top: 1px solid rgba(232,229,224,0.06);
+      padding-top: 16px;
+    }
+
+    /* ============================================================
+       CONTACT
+    ============================================================ */
+    #contact {
+      background: var(--black);
+    }
+
+    .contact-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+
+    .contact-intro {
+      font-size: clamp(0.9rem, 3.5vw, 1.05rem);
+      color: rgba(232,229,224,0.65);
+      line-height: 1.8;
+      max-width: 480px;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      color: var(--off-white);
+      min-height: 44px;
+      transition: color 0.2s;
+    }
+
+    .contact-link:hover {
+      color: var(--accent);
+    }
+
+    .contact-link-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid rgba(232,229,224,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .contact-link:hover .contact-link-icon {
+      border-color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    .contact-link-icon svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Form */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-group label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      background: rgba(232,229,224,0.04);
+      border: 1px solid rgba(232,229,224,0.12);
+      border-radius: 4px;
+      padding: 14px 16px;
+      color: var(--off-white);
+      font-family: var(--sans);
+      font-size: 0.9375rem;
+      font-weight: 300;
+      outline: none;
+      transition: border-color 0.25s, background 0.25s;
+      min-height: 44px;
+      -webkit-appearance: none;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(232,229,224,0.25);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: rgba(201,169,110,0.5);
+      background: rgba(201,169,110,0.04);
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 52px;
+      padding: 14px 32px;
+      background: var(--accent);
+      color: var(--black);
+      font-family: var(--sans);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border-radius: 3px;
+      transition: background 0.25s, transform 0.2s;
+      cursor: pointer;
+      border: none;
+      width: 100%;
+    }
+
+    .btn-primary:hover,
+    .btn-primary:focus {
+      background: #d4b07e;
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .form-note {
+      font-size: 0.75rem;
+      color: rgba(232,229,224,0.3);
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    @media (min-width: 768px) {
+      .contact-grid {
+        flex-direction: row;
+        gap: 80px;
+      }
+
+      .contact-grid > * {
+        flex: 1;
+      }
+
+      .btn-primary {
+        width: auto;
+      }
+    }
+
+    /* ============================================================
+       STICKY BOTTOM CTA BAR
+    ============================================================ */
+    #sticky-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 90;
+      padding: 10px 20px;
+      padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+      background: rgba(8,8,8,0.9);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(232,229,224,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: translateY(0);
+      transition: transform 0.4s var(--ease-out);
+    }
+
+    #sticky-cta.hidden {
+      transform: translateY(100%);
+    }
+
+    .cta-bar-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 44px;
+      padding: 10px 28px;
+      background: var(--accent);
+      color: var(--black);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border-radius: 3px;
+      transition: background 0.2s;
+      width: 100%;
+      justify-content: center;
+      max-width: 420px;
+    }
+
+    .cta-bar-btn:hover {
+      background: #d4b07e;
+    }
+
+    .cta-arrow {
+      display: inline-block;
+      transition: transform 0.2s;
+    }
+
+    .cta-bar-btn:hover .cta-arrow {
+      transform: translateX(3px);
+    }
+
+    /* Hide on desktop — big screen has enough space */
+    @media (min-width: 1024px) {
+      #sticky-cta {
+        display: none;
+      }
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer {
+      background: #030303;
+      border-top: 1px solid rgba(232,229,224,0.06);
+      padding: 40px 20px;
+      padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px));
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      color: var(--off-white);
+      margin-bottom: 8px;
+    }
+
+    .footer-tagline {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+
+    .footer-links a {
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(232,229,224,0.4);
+      transition: color 0.2s;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+    }
+
+    .footer-links a:hover {
+      color: var(--off-white);
+    }
+
+    .footer-copy {
+      font-size: 0.7rem;
+      color: rgba(232,229,224,0.2);
+      letter-spacing: 0.06em;
+    }
+
+    /* ============================================================
+       UTILITY
+    ============================================================ */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    ::selection {
+      background: rgba(201,169,110,0.3);
+      color: var(--off-white);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: rgba(232,229,224,0.15); border-radius: 2px; }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVIGATION
+  ============================================================ -->
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <a href="#hero" class="nav-logo" aria-label="Laila El Zoghbi — home">Laila <span>El Zoghbi</span></a>
+
+    <!-- Desktop nav links -->
+    <ul class="nav-links" role="list">
+      <li><a href="#gallery">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <!-- Hamburger -->
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navDrawer" aria-label="Open menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile drawer -->
+  <div class="nav-drawer" id="navDrawer" role="dialog" aria-label="Navigation menu" aria-modal="true">
+    <a href="#gallery" class="drawer-link">Work</a>
+    <a href="#about" class="drawer-link">About</a>
+    <a href="#services" class="drawer-link">Services</a>
+    <a href="#contact" class="drawer-link">Contact</a>
+  </div>
+
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section id="hero" aria-label="Hero">
+    <img
+      class="hero-bg"
+      src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=1600&q=80"
+      alt="Atmospheric landscape — hero background"
+      fetchpriority="high"
+    />
+    <div class="hero-overlay" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow">London · Editorial · Portrait · Landscape</p>
+      <h1 class="hero-name">Laila El Zoghbi</h1>
+      <p class="hero-tagline-big">Light &amp; Shadow</p>
+      <p class="hero-tagline-sub">Freelance photographer based in London.<br>Editorial, portrait &amp; landscape.</p>
+    </div>
+
+    <div class="hero-scroll-cue" aria-hidden="true">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       GALLERY
+  ============================================================ -->
+  <section id="gallery" aria-labelledby="gallery-heading">
+    <div class="container fade-in">
+      <p class="section-label">Selected Work</p>
+      <h2 class="section-title" id="gallery-heading">The <em>Portfolio</em></h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="gallery-feed" role="list" aria-label="Photo gallery">
+
+      <div class="gallery-item" role="listitem" data-index="0" tabindex="0" aria-label="Open Marrakech, 2024 fullscreen">
+        <div class="gallery-img-wrap">
+          <img src="https://images.unsplash.com/photo-1539635278303-d4002c07eae3?w=800&q=80" alt="Marrakech, 2024" loading="lazy" />
+          <div class="gallery-tap-hint" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+          </div>
+          <div class="gallery-caption">Marrakech, 2024</div>
+        </div>
+      </div>
+
+      <div class="gallery-item" role="listitem" data-index="1" tabindex="0" aria-label="Open Portrait Series, 2024 fullscreen">
+        <div class="gallery-img-wrap">
+          <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&q=80" alt="Portrait Series, 2024" loading="lazy" />
+          <div class="gallery-tap-hint" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+          </div>
+          <div class="gallery-caption">Portrait Series, 2024</div>
+        </div>
+      </div>
+
+      <div class="gallery-item" role="listitem" data-index="2" tabindex="0" aria-label="Open Iceland, 2023 fullscreen">
+        <div class="gallery-img-wrap">
+          <img src="https://images.unsplash.com/photo-1476610182048-b716b8518aae?w=800&q=80" alt="Iceland, 2023" loading="lazy" />
+          <div class="gallery-tap-hint" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+          </div>
+          <div class="gallery-caption">Iceland, 2023</div>
+        </div>
+      </div>
+
+      <div class="gallery-item" role="listitem" data-index="3" tabindex="0" aria-label="Open Still Life fullscreen">
+        <div class="gallery-img-wrap">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Still Life" loading="lazy" />
+          <div class="gallery-tap-hint" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+          </div>
+          <div class="gallery-caption">Still Life</div>
+        </div>
+      </div>
+
+      <div class="gallery-item" role="listitem" data-index="4" tabindex="0" aria-label="Open Urban, London fullscreen">
+        <div class="gallery-img-wrap">
+          <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=600&q=80" alt="Urban, London" loading="lazy" />
+          <div class="gallery-tap-hint" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+          </div>
+          <div class="gallery-caption">Urban, London</div>
+        </div>
+      </div>
+
+      <div class="gallery-item" role="listitem" data-index="5" tabindex="0" aria-label="Open Editorial, 2023 fullscreen">
+        <div class="gallery-img-wrap">
+          <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=800&q=80" alt="Editorial, 2023" loading="lazy" />
+          <div class="gallery-tap-hint" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+          </div>
+          <div class="gallery-caption">Editorial, 2023</div>
+        </div>
+      </div>
+
+      <div class="gallery-item" role="listitem" data-index="6" tabindex="0" aria-label="Open Havana, 2022 fullscreen">
+        <div class="gallery-img-wrap">
+          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800&q=80" alt="Havana, 2022" loading="lazy" />
+          <div class="gallery-tap-hint" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+          </div>
+          <div class="gallery-caption">Havana, 2022</div>
+        </div>
+      </div>
+
+      <div class="gallery-item" role="listitem" data-index="7" tabindex="0" aria-label="Open Documentary fullscreen">
+        <div class="gallery-img-wrap">
+          <img src="https://images.unsplash.com/photo-1488085061387-422e29b40080?w=800&q=80" alt="Documentary" loading="lazy" />
+          <div class="gallery-tap-hint" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+          </div>
+          <div class="gallery-caption">Documentary</div>
+        </div>
+      </div>
+
+      <div class="gallery-item" role="listitem" data-index="8" tabindex="0" aria-label="Open Kyoto, 2022 fullscreen">
+        <div class="gallery-img-wrap">
+          <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=800&q=80" alt="Kyoto, 2022" loading="lazy" />
+          <div class="gallery-tap-hint" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+          </div>
+          <div class="gallery-caption">Kyoto, 2022</div>
+        </div>
+      </div>
+
+      <div class="gallery-item" role="listitem" data-index="9" tabindex="0" aria-label="Open Architectural fullscreen">
+        <div class="gallery-img-wrap">
+          <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80" alt="Architectural" loading="lazy" />
+          <div class="gallery-tap-hint" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+          </div>
+          <div class="gallery-caption">Architectural</div>
+        </div>
+      </div>
+
+      <div class="gallery-item" role="listitem" data-index="10" tabindex="0" aria-label="Open Dusk Series fullscreen">
+        <div class="gallery-img-wrap">
+          <img src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=600&q=80" alt="Dusk Series" loading="lazy" />
+          <div class="gallery-tap-hint" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+          </div>
+          <div class="gallery-caption">Dusk Series</div>
+        </div>
+      </div>
+
+      <div class="gallery-item" role="listitem" data-index="11" tabindex="0" aria-label="Open Patagonia, 2021 fullscreen">
+        <div class="gallery-img-wrap">
+          <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1000&q=80" alt="Patagonia, 2021" loading="lazy" />
+          <div class="gallery-tap-hint" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+          </div>
+          <div class="gallery-caption">Patagonia, 2021</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       LIGHTBOX
+  ============================================================ -->
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Photo lightbox" aria-hidden="true">
+    <div class="lb-inner">
+      <button class="lb-close" id="lbClose" aria-label="Close lightbox">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+
+      <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous photo">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+
+      <div class="lb-img-wrap" id="lbImgWrap">
+        <img id="lbImg" src="" alt="" />
+      </div>
+
+      <button class="lb-nav lb-next" id="lbNext" aria-label="Next photo">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+      <div class="lb-counter" id="lbCounter" aria-live="polite"></div>
+      <div class="lb-caption" id="lbCaption" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       ABOUT
+  ============================================================ -->
+  <section id="about" aria-labelledby="about-heading">
+    <div class="container">
+      <div class="about-grid">
+
+        <div class="about-portrait fade-in">
+          <img
+            src="https://images.unsplash.com/photo-1554080353-a576cf803bda?w=600&q=80"
+            alt="Portrait of Laila El Zoghbi"
+            loading="lazy"
+          />
+        </div>
+
+        <div class="about-text-block">
+          <p class="section-label fade-in">About</p>
+          <h2 class="section-title fade-in fade-in-delay-1" id="about-heading">The <em>Photographer</em></h2>
+          <div class="divider fade-in fade-in-delay-2"></div>
+
+          <p class="about-bio fade-in fade-in-delay-2">
+            I'm Laila El Zoghbi — a London-based photographer working across editorial, portraiture, documentary, and landscape. My work is drawn to the threshold moments: the minute before a storm, the breath before a laugh, the light at the edge of everything.
+            <br><br>
+            Trained at the London College of Communication and under the mentorship of Magnum photographer Ana Esperanza, I've spent the last decade with a camera in countries and cultures that continually rearrange what I thought I knew about seeing.
+            <br><br>
+            My work has appeared in <em>Vogue</em>, <em>National Geographic</em>, <em>The Guardian</em>, and <em>Harper's Bazaar</em>. I shoot on both digital and medium-format film — often on the same project.
+          </p>
+
+          <div class="stats-row fade-in fade-in-delay-3">
+            <div class="stat">
+              <div class="stat-number">11</div>
+              <div class="stat-label">Years<br>Working</div>
+            </div>
+            <div class="stat">
+              <div class="stat-number">38</div>
+              <div class="stat-label">Countries<br>Visited</div>
+            </div>
+            <div class="stat">
+              <div class="stat-number">4</div>
+              <div class="stat-label">Awards<br>Won</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SERVICES
+  ============================================================ -->
+  <section id="services" aria-labelledby="services-heading">
+    <div class="container">
+      <p class="section-label fade-in">What I Offer</p>
+      <h2 class="section-title fade-in fade-in-delay-1" id="services-heading">Services &amp; <em>Pricing</em></h2>
+      <div class="divider fade-in fade-in-delay-2"></div>
+
+      <div class="services-list fade-in fade-in-delay-3" role="list">
+
+        <div class="service-item" role="listitem">
+          <div class="service-header" role="button" tabindex="0" aria-expanded="false" aria-controls="svc-body-0">
+            <div class="service-header-left">
+              <span class="service-name">Editorial &amp; Magazine</span>
+              <span class="service-price">From £1,200 / day</span>
+            </div>
+            <div class="service-toggle" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </div>
+          </div>
+          <div class="service-body" id="svc-body-0" role="region">
+            <div class="service-body-inner">
+              Long-form editorial shoots for magazines, newspapers, and online publications. Includes full-day coverage, post-production editing, and digital delivery within 5 working days. Experience with Vogue, National Geographic, and The Guardian style requirements. Travel within the UK included; international travel by arrangement.
+            </div>
+          </div>
+        </div>
+
+        <div class="service-item" role="listitem">
+          <div class="service-header" role="button" tabindex="0" aria-expanded="false" aria-controls="svc-body-1">
+            <div class="service-header-left">
+              <span class="service-name">Portrait Sessions</span>
+              <span class="service-price">From £480 / session</span>
+            </div>
+            <div class="service-toggle" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </div>
+          </div>
+          <div class="service-body" id="svc-body-1" role="region">
+            <div class="service-body-inner">
+              Individual and group portrait sessions for professionals, creatives, families, and artists. Shot on location or in studio. Includes 2-hour session, consultation call, and a curated selection of fully retouched images. Available in both digital and medium-format film.
+            </div>
+          </div>
+        </div>
+
+        <div class="service-item" role="listitem">
+          <div class="service-header" role="button" tabindex="0" aria-expanded="false" aria-controls="svc-body-2">
+            <div class="service-header-left">
+              <span class="service-name">Brand &amp; Commercial</span>
+              <span class="service-price">From £2,400 / day</span>
+            </div>
+            <div class="service-toggle" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </div>
+          </div>
+          <div class="service-body" id="svc-body-2" role="region">
+            <div class="service-body-inner">
+              Commercial photography for brands, agencies, and product campaigns. Full creative direction available. Rates include usage licensing for standard brand channels. Multi-day and retainer packages available for ongoing brand partnerships. Previous clients span fashion, hospitality, and lifestyle sectors.
+            </div>
+          </div>
+        </div>
+
+        <div class="service-item" role="listitem">
+          <div class="service-header" role="button" tabindex="0" aria-expanded="false" aria-controls="svc-body-3">
+            <div class="service-header-left">
+              <span class="service-name">Documentary Projects</span>
+              <span class="service-price">POA</span>
+            </div>
+            <div class="service-toggle" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </div>
+          </div>
+          <div class="service-body" id="svc-body-3" role="region">
+            <div class="service-body-inner">
+              Long-term documentary and photojournalism projects. Pricing varies by scope, duration, and travel requirements. I work with NGOs, publishers, and independent producers on stories that demand sustained attention and a sensitive eye. Please reach out with a project brief for an initial conversation.
+            </div>
+          </div>
+        </div>
+
+        <div class="service-item" role="listitem">
+          <div class="service-header" role="button" tabindex="0" aria-expanded="false" aria-controls="svc-body-4">
+            <div class="service-header-left">
+              <span class="service-name">Fine Art Prints</span>
+              <span class="service-price">From £240 unframed</span>
+            </div>
+            <div class="service-toggle" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </div>
+          </div>
+          <div class="service-body" id="svc-body-4" role="region">
+            <div class="service-body-inner">
+              Limited-edition fine art prints from my personal archive and ongoing projects. Printed on archival Hahnemühle Photo Rag 308gsm paper by specialist labs. Each print is signed, numbered, and comes with a certificate of authenticity. Framing available on request. Editions strictly limited to 25 per image.
+            </div>
+          </div>
+        </div>
+
+        <div class="service-item" role="listitem">
+          <div class="service-header" role="button" tabindex="0" aria-expanded="false" aria-controls="svc-body-5">
+            <div class="service-header-left">
+              <span class="service-name">Workshops</span>
+              <span class="service-price">From £320 / participant</span>
+            </div>
+            <div class="service-toggle" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </div>
+          </div>
+          <div class="service-body" id="svc-body-5" role="region">
+            <div class="service-body-inner">
+              Intimate small-group and one-to-one photography workshops covering light, composition, storytelling, and editing. Held in London and internationally at retreat locations. Maximum 8 participants per group. All skill levels welcome. Upcoming dates announced via the mailing list — get in touch to be notified.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONTACT
+  ============================================================ -->
+  <section id="contact" aria-labelledby="contact-heading">
+    <div class="container">
+      <div class="contact-grid">
+
+        <div>
+          <p class="section-label fade-in">Get in Touch</p>
+          <h2 class="section-title fade-in fade-in-delay-1" id="contact-heading">Book a <em>Session</em></h2>
+          <div class="divider fade-in fade-in-delay-2"></div>
+
+          <p class="contact-intro fade-in fade-in-delay-2">
+            Whether you have a specific brief in mind or just want to start a conversation, I'd love to hear from you. I typically respond within 48 hours.
+          </p>
+
+          <div class="contact-links fade-in fade-in-delay-3">
+            <a href="mailto:hello@lailaelzoghbi.com" class="contact-link" aria-label="Email Laila at hello@lailaelzoghbi.com">
+              <span class="contact-link-icon">
+                <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+              </span>
+              hello@lailaelzoghbi.com
+            </a>
+            <a href="https://instagram.com/lailaelzoghbi" target="_blank" rel="noopener noreferrer" class="contact-link" aria-label="Laila El Zoghbi on Instagram">
+              <span class="contact-link-icon">
+                <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+              </span>
+              @lailaelzoghbi
+            </a>
+          </div>
+        </div>
+
+        <div class="fade-in fade-in-delay-2">
+          <form class="contact-form" action="#" method="post" aria-label="Contact form" novalidate>
+            <div class="form-group">
+              <label for="contact-name">Name</label>
+              <input type="text" id="contact-name" name="name" placeholder="Your name" autocomplete="name" required />
+            </div>
+            <div class="form-group">
+              <label for="contact-email">Email</label>
+              <input type="email" id="contact-email" name="email" placeholder="your@email.com" autocomplete="email" required />
+            </div>
+            <div class="form-group">
+              <label for="contact-message">Message</label>
+              <textarea id="contact-message" name="message" placeholder="Tell me about your project or enquiry…" required></textarea>
+            </div>
+            <button type="submit" class="btn-primary">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              Send Message
+            </button>
+            <p class="form-note">I typically reply within 48 hours.</p>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer role="contentinfo">
+    <div class="footer-logo">Laila El Zoghbi</div>
+    <p class="footer-tagline">Light &amp; Shadow · London</p>
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="#gallery">Work</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+      <a href="mailto:hello@lailaelzoghbi.com">Email</a>
+    </nav>
+    <p class="footer-copy">&copy; 2024 Laila El Zoghbi. All rights reserved.</p>
+  </footer>
+
+  <!-- ============================================================
+       STICKY BOTTOM CTA BAR
+  ============================================================ -->
+  <div id="sticky-cta" role="complementary" aria-label="Book a session">
+    <a href="#contact" class="cta-bar-btn" aria-label="Book a session — scroll to contact section">
+      Book a Session <span class="cta-arrow" aria-hidden="true">→</span>
+    </a>
+  </div>
+
+  <!-- ============================================================
+       JAVASCRIPT
+  ============================================================ -->
+  <script>
+    'use strict';
+
+    /* -------------------------------------------------------
+       DATA — gallery images & captions
+    ------------------------------------------------------- */
+    const GALLERY = [
+      { src: 'https://images.unsplash.com/photo-1539635278303-d4002c07eae3?w=800&q=80', caption: 'Marrakech, 2024' },
+      { src: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&q=80', caption: 'Portrait Series, 2024' },
+      { src: 'https://images.unsplash.com/photo-1476610182048-b716b8518aae?w=800&q=80', caption: 'Iceland, 2023' },
+      { src: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',  caption: 'Still Life' },
+      { src: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=600&q=80', caption: 'Urban, London' },
+      { src: 'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=800&q=80', caption: 'Editorial, 2023' },
+      { src: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800&q=80', caption: 'Havana, 2022' },
+      { src: 'https://images.unsplash.com/photo-1488085061387-422e29b40080?w=800&q=80', caption: 'Documentary' },
+      { src: 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=800&q=80', caption: 'Kyoto, 2022' },
+      { src: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80', caption: 'Architectural' },
+      { src: 'https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=600&q=80', caption: 'Dusk Series' },
+      { src: 'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1000&q=80', caption: 'Patagonia, 2021' },
+    ];
+
+    /* -------------------------------------------------------
+       NAV — scroll behaviour + hamburger
+    ------------------------------------------------------- */
+    const nav       = document.getElementById('mainNav');
+    const navToggle = document.getElementById('navToggle');
+    const navDrawer = document.getElementById('navDrawer');
+    const drawerLinks = navDrawer.querySelectorAll('.drawer-link');
+
+    let drawerOpen = false;
+
+    function openDrawer() {
+      drawerOpen = true;
+      navDrawer.classList.add('open');
+      navToggle.classList.add('open');
+      navToggle.setAttribute('aria-expanded', 'true');
+      navToggle.setAttribute('aria-label', 'Close menu');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDrawer() {
+      drawerOpen = false;
+      navDrawer.classList.remove('open');
+      navToggle.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      navToggle.setAttribute('aria-label', 'Open menu');
+      document.body.style.overflow = '';
+    }
+
+    navToggle.addEventListener('click', () => {
+      drawerOpen ? closeDrawer() : openDrawer();
+    });
+
+    drawerLinks.forEach(link => {
+      link.addEventListener('click', closeDrawer);
+    });
+
+    // Keyboard: Escape closes drawer
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        if (drawerOpen) closeDrawer();
+        if (lbOpen) closeLightbox();
+      }
+    });
+
+    // Nav background on scroll
+    let lastScroll = 0;
+    const stickyCTA = document.getElementById('sticky-cta');
+    const contactSection = document.getElementById('contact');
+
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if (y > 60) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+
+      // Hide/show sticky CTA when contact section visible
+      const contactTop = contactSection.getBoundingClientRect().top;
+      if (contactTop < window.innerHeight * 0.6) {
+        stickyCTA.classList.add('hidden');
+      } else {
+        stickyCTA.classList.remove('hidden');
+      }
+
+      lastScroll = y;
+    }, { passive: true });
+
+    /* -------------------------------------------------------
+       INTERSECTION OBSERVER — fade-in animations
+    ------------------------------------------------------- */
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    fadeEls.forEach(el => fadeObserver.observe(el));
+
+    const galleryObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          // stagger by index modulo
+          const delay = (parseInt(entry.target.dataset.index) % 3) * 80;
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, delay);
+          galleryObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+
+    galleryItems.forEach(el => galleryObserver.observe(el));
+
+    /* -------------------------------------------------------
+       LIGHTBOX
+    ------------------------------------------------------- */
+    const lightbox  = document.getElementById('lightbox');
+    const lbImg     = document.getElementById('lbImg');
+    const lbCaption = document.getElementById('lbCaption');
+    const lbCounter = document.getElementById('lbCounter');
+    const lbClose   = document.getElementById('lbClose');
+    const lbPrev    = document.getElementById('lbPrev');
+    const lbNext    = document.getElementById('lbNext');
+
+    let lbOpen  = false;
+    let lbIndex = 0;
+
+    function openLightbox(index) {
+      lbIndex = index;
+      lbOpen  = true;
+      showLbImage(index, false);
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      lbClose.focus();
+    }
+
+    function closeLightbox() {
+      lbOpen = false;
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    function showLbImage(index, animate) {
+      lbIndex = ((index % GALLERY.length) + GALLERY.length) % GALLERY.length;
+      const item = GALLERY[lbIndex];
+      if (animate) {
+        lbImg.style.opacity = '0';
+        setTimeout(() => {
+          lbImg.src = item.src;
+          lbImg.alt = item.caption;
+          lbImg.style.opacity = '1';
+        }, 160);
+      } else {
+        lbImg.src = item.src;
+        lbImg.alt = item.caption;
+        lbImg.style.opacity = '1';
+      }
+      lbCaption.textContent = item.caption;
+      lbCounter.textContent = (lbIndex + 1) + ' / ' + GALLERY.length;
+    }
+
+    // Open from gallery items
+    galleryItems.forEach(item => {
+      item.addEventListener('click', () => openLightbox(parseInt(item.dataset.index)));
+      item.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openLightbox(parseInt(item.dataset.index));
+        }
+      });
+    });
+
+    lbClose.addEventListener('click', closeLightbox);
+    lbPrev.addEventListener('click', () => showLbImage(lbIndex - 1, true));
+    lbNext.addEventListener('click', () => showLbImage(lbIndex + 1, true));
+
+    // Click backdrop to close
+    lightbox.addEventListener('click', e => {
+      if (e.target === lightbox || e.target.classList.contains('lb-inner')) {
+        closeLightbox();
+      }
+    });
+
+    // Keyboard navigation in lightbox
+    document.addEventListener('keydown', e => {
+      if (!lbOpen) return;
+      if (e.key === 'ArrowLeft')  showLbImage(lbIndex - 1, true);
+      if (e.key === 'ArrowRight') showLbImage(lbIndex + 1, true);
+    });
+
+    // Touch / swipe gestures
+    let touchStartX = 0;
+    let touchStartY = 0;
+    const LB_IMG_WRAP = document.getElementById('lbImgWrap');
+
+    lightbox.addEventListener('touchstart', e => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    lightbox.addEventListener('touchend', e => {
+      if (!lbOpen) return;
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      const dy = e.changedTouches[0].clientY - touchStartY;
+      // Only treat as horizontal swipe if dominant axis
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+        if (dx < 0) {
+          showLbImage(lbIndex + 1, true); // swipe left → next
+        } else {
+          showLbImage(lbIndex - 1, true); // swipe right → prev
+        }
+      }
+    }, { passive: true });
+
+    /* -------------------------------------------------------
+       SERVICES ACCORDION
+    ------------------------------------------------------- */
+    const serviceHeaders = document.querySelectorAll('.service-header');
+
+    serviceHeaders.forEach((header, i) => {
+      const item   = header.closest('.service-item');
+      const body   = item.querySelector('.service-body');
+      const inner  = item.querySelector('.service-body-inner');
+
+      header.addEventListener('click', () => toggleService(item, body, inner, header));
+      header.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleService(item, body, inner, header);
+        }
+      });
+    });
+
+    function toggleService(item, body, inner, header) {
+      const isOpen = item.classList.contains('open');
+
+      // Close all
+      document.querySelectorAll('.service-item.open').forEach(openItem => {
+        openItem.classList.remove('open');
+        openItem.querySelector('.service-body').style.maxHeight = '0';
+        openItem.querySelector('.service-header').setAttribute('aria-expanded', 'false');
+      });
+
+      // Open clicked (unless it was already open)
+      if (!isOpen) {
+        item.classList.add('open');
+        body.style.maxHeight = inner.scrollHeight + 'px';
+        header.setAttribute('aria-expanded', 'true');
+      }
+    }
+
+    /* -------------------------------------------------------
+       CONTACT FORM — basic submission feedback
+    ------------------------------------------------------- */
+    const contactForm = document.querySelector('.contact-form');
+    contactForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const btn = contactForm.querySelector('.btn-primary');
+      btn.textContent = 'Message Sent ✓';
+      btn.style.background = '#4a7c59';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send Message';
+        btn.style.background = '';
+        btn.disabled = false;
+        contactForm.reset();
+      }, 3500);
+    });
+
+    /* -------------------------------------------------------
+       SMOOTH SCROLL for all hash links (fallback for older Safari)
+    ------------------------------------------------------- */
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    /* -------------------------------------------------------
+       lbImg transition style
+    ------------------------------------------------------- */
+    lbImg.style.transition = 'opacity 0.18s ease';
+
+  </script>
+</body>
+</html>
